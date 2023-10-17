@@ -68,9 +68,22 @@ loadData()
 const showPhoneDetails = async id => {
     const response = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
     const data = await response.json();
+    const phone = data?.data;
     console.log(data.data);
     phone_details_modal.showModal();
 
+    const phoneImg = document.getElementById('detail-phone-img');
+    phoneImg.src = `${data.data.image}`;
 
+    document.getElementById('detail-phone-name').innerText =phone?.name ? 'Model: ' +  phone.name: '';
+    document.getElementById('detail-brand').innerText = phone?.brand ? 'Brand: ' + phone.brand: '';
+    document.getElementById('detail-releae-date').innerText = phone?.releaseDate ? 'Release Date: ' + phone.releaseDate:'';
+    document.getElementById('detail-display-size').innerText = phone?.mainFeatures?.displaySize ? 'Display Size: ' + phone.mainFeatures.displaySize : '';
+    document.getElementById('detail-memory').innerText = phone?.mainFeatures?.memory ? 'Memory: ' + phone.mainFeatures.memory : '';
+    document.getElementById('detail-storage').innerText = phone?.mainFeatures?.storage ? 'Storage: ' + phone.mainFeatures.storage : '';
+    document.getElementById('detail-wlan').innerText = phone?.others?.WLAN ? 'WLAN: ' + phone.others.WLAN : '';
+    document.getElementById('detail-gps').innerText = phone?.others?.GPS ? 'GPS: ' + phone.others.GPS : '';
+    document.getElementById('detail-bluetooth').innerText = phone?.others?.Bluetooth ? 'Bluetooth: ' + phone.others.Bluetooth : '';
+    document.getElementById('detail-nfc').innerText = phone?.others?.NFC ? 'NFC: ' + phone.others.NFC : '';
 
 }
