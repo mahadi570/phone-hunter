@@ -69,7 +69,7 @@ const showPhoneDetails = async id => {
     const response = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
     const data = await response.json();
     const phone = data?.data;
-    console.log(data.data);
+    
     phone_details_modal.showModal();
 
     const phoneImg = document.getElementById('detail-phone-img');
