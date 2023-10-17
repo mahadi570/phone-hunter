@@ -11,14 +11,34 @@
 
 <body>
     <div class="join items-center block text-center my-14">
-        <input id="search-text" class="input input-bordered join-item w-4/12" placeholder="Search..." />
+        <input id="search-text" class="input input-bordered join-item w-4/12"
+            placeholder="Search something or click Search to button to see default loaded data..." />
         <button id="search-btn" class="btn join-item rounded-r-full w-2/12">Search</button>
+        <h3 id="searched-text" class="text-xl">Showing results for <span id="searched-text-value"
+                class="font-bold"></span></h3>
     </div>
-    <div id="phone-container" class="w-11/12 mx-auto grid grid-cols-3 gap-4">
+    <div id="phone-container"
+        class="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    </div>
+    <div class="w-11/12 mx-auto text-center" id="error-container">
 
     </div>
-
-<!-- coming more soon -->
+    <!-- Show Modal -->
+    <div>
+        <!-- Open the modal using ID.showModal() method -->
+        <dialog id="phone_details_modal" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Hello!</h3>
+                <p class="py-4">Press ESC key or click the button below to close</p>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+    </div>
     <script src="script.js"></script>
 </body>
 
