@@ -24,7 +24,7 @@ function showData(data) {
                     <h1 class="card-title">Device Name: ${phone.phone_name}</h1>
                     <h2>Brand Name: ${phone.brand}</h2>
                     <div class="card-actions">
-                    <a class="btn btn-primary font-bold text-white" class="btn">Buy Now</a>
+                    <a class="btn btn-primary font-bold text-white" class="btn" onclick = "buyPhoneModal('${phone.slug}')">Buy Now</a>
                     <a class="btn btn-primary font-bold text-white" onclick="showPhoneDetails('${phone.slug}')" class="btn">Show Details</a>
                     </div>
                     </div>
@@ -69,21 +69,41 @@ const showPhoneDetails = async id => {
     const response = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
     const data = await response.json();
     const phone = data?.data;
-    
+
     phone_details_modal.showModal();
 
     const phoneImg = document.getElementById('detail-phone-img');
     phoneImg.src = `${data.data.image}`;
 
-    document.getElementById('detail-phone-name').innerText =phone?.name ? 'Model: ' +  phone.name: '';
-    document.getElementById('detail-brand').innerText = phone?.brand ? 'Brand: ' + phone.brand: '';
-    document.getElementById('detail-releae-date').innerText = phone?.releaseDate ? 'Release Date: ' + phone.releaseDate:'';
-    document.getElementById('detail-display-size').innerText = phone?.mainFeatures?.displaySize ? 'Display Size: ' + phone.mainFeatures.displaySize : '';
-    document.getElementById('detail-memory').innerText = phone?.mainFeatures?.memory ? 'Memory: ' + phone.mainFeatures.memory : '';
-    document.getElementById('detail-storage').innerText = phone?.mainFeatures?.storage ? 'Storage: ' + phone.mainFeatures.storage : '';
-    document.getElementById('detail-wlan').innerText = phone?.others?.WLAN ? 'WLAN: ' + phone.others.WLAN : '';
-    document.getElementById('detail-gps').innerText = phone?.others?.GPS ? 'GPS: ' + phone.others.GPS : '';
-    document.getElementById('detail-bluetooth').innerText = phone?.others?.Bluetooth ? 'Bluetooth: ' + phone.others.Bluetooth : '';
-    document.getElementById('detail-nfc').innerText = phone?.others?.NFC ? 'NFC: ' + phone.others.NFC : '';
+    const detailsContainer = document.getElementById('details-container');
+    detailsContainer.textContent = ''
+
+    const div = document.createElement('div');
+    div.innerHTML = `
+                    <h3 class="font-medium mt-3 text-base">${phone?.name ? 'Model: ' + phone.name : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.brand ? 'Brand: ' + phone.brand : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.releaseDate ? 'Release Date: ' + phone.releaseDate : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.mainFeatures?.displaySize ? 'Display Size: ' + phone.mainFeatures.displaySize : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.mainFeatures?.memory ? 'Memory: ' + phone.mainFeatures.memory : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.mainFeatures?.storage ? 'Storage: ' + phone.mainFeatures.storage : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.others?.WLAN ? 'WLAN: ' + phone.others.WLAN : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.others?.GPS ? 'GPS: ' + phone.others.GPS : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.others?.Bluetooth ? 'Bluetooth: ' + phone.others.Bluetooth : ''}</h3>
+                    <h3 class="font-medium mt-3 text-base">${phone?.others?.NFC ? 'NFC: ' + phone.others.NFC : ''}</h3>
+    `
+    detailsContainer.appendChild(div)
+}
+const buyPhoneModal = async id => {
+    const response = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+    const data = await response.json();
+    const phone = data?.data;
+
+    buy_phone_modal.showModal();
+
+    const phoneImg = document.getElementById('buy-details-phone-img');
+    phoneImg.src = `${data.data.image}`;
+
+    document.getElementById('buy-details-phone-name').innerText = phone?.name ? phone.name : '';
+    document.getElementById('buy-details-brand').innerText = phone?.brand ? phone.brand : '';
 
 }
